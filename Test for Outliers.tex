@@ -1,0 +1,47 @@
+\documentclass[,oneside]{article}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{enumitem}
+
+\numberwithin{equation}{section}
+
+\author{Lewis McConkey}
+\date{\today}
+\title{ \LARGE{Test for outliers}}
+
+          
+\begin{document}
+\maketitle 
+
+\section{Key Definitions}
+The studentized residual for observation i is given as:
+\begin{align*}
+s_i=\frac{\hat{\epsilon_i}}{\hat{\sigma}\sqrt{1-H_{ii}}}
+\end{align}
+Where $H_{ii}$ is the ith element on the diagonal of the hat matrix ($H=X(X^{'}X)^{-1} X^'$ where X is the design matrix), $\hat{\sigma}$ is the estimated residual standard error and $\hat{\epsilon_i}$ are the estimated residuals ($\hat{\epsilon_i} = y_i - \hat{\mu_i}$)\\
+\\The test statistic is:
+\begin{align*}
+t_i=s_i\sqrt{\frac{n-p-1}{n-p-s_i^2}}
+\end{align}
+Where n is the total number of observations and p is the number of regression coefficients in the linear model.
+
+\section{Hypothesis test for outliers}
+We want to test whether there is significant evidence to suggest that an observation is an outlier. The observation we have produces a residual of $\hat{\epsilon} = 0.65$ and the linear model produces $\hat{\sigma} = 0.2328, H_{12,12} = 0.0639$. 
+We also have 2 regression coefficients in our model and 17 observations. We first want to state our hypotheses and find the studentized residual:
+\begin{align*}
+H_0:& \hspace{0.1cm}$observation i is not an outlier$ \\
+H_1:&\hspace{0.1cm}$observation i is an outlier$ \\
+s_i=&\hspace{0.1cm}\frac{\hat{\epsilon_i}}{\hat{\sigma}\sqrt{1-H_{ii}}}\\
+= &\hspace{0.1cm}\frac{0.65}{0.2328\sqrt{1-0.0639}}\\
+= &\hspace{0.1cm}2.89
+\end{align}
+Now we need to calculate the test statistic:
+\begin{align*}
+t_i=&\hspace{0.1cm} s_i\sqrt{\frac{n-p-1}{n-p-s_i^2}}\\
+=&\hspace{0.1cm} 2.89\sqrt{\left(\frac{17-2-1}{17-2-2.89^2}\right)}\\
+=&\hspace{0.1cm} 4.18
+\end{align}
+Lastly compare against a p value using a t-distribution with $n-p-1 = 14$ degrees of freedom (That is $2*(1-pt(4.18,14)) = 9.25 * 10^{-4}$ in R).  Using a 5\% significance level we can now reject $H_0$ and conclude that there is evidence that 0.65 is an outlier.
+\end{document}

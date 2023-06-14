@@ -1,0 +1,67 @@
+\documentclass[,oneside]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{setspace}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\numberwithin{equation}{section}
+\usepackage{listings}
+\newcommand{\Z}{\mathbb{Z}}
+
+\author{Lewis McConkey}
+\date{\today}
+\title{ \LARGE{Isomorphism and Homomorphism}}
+     
+          
+\begin{document}
+\maketitle
+\section{Prerequisite}
+The following document is based on these two questions from a module on Abstract Algebra:
+\begin{enumerate}[i]
+\item Let G and H be groups, and suppose $\theta : G \rightarrow H$ is an isomorphism (in the sense of
+Definition 6.9). Prove that if G is Abelian, then H is Abelian
+\item Let V be “the” group from Section 4.1, i.e. a group of order 4 in which each non-identity element has order 2. Let $\theta : V \rightarrow \Z_4$ be a bijection. Without using any Cayley tables, show that $\theta$ cannot be a group homomorphism.
+\end{enumerate}
+
+\section{Isomorphism}
+For the first proof will we use the following definition of isomorphism:\\
+\begin{center}
+\begin{definition}{\label=\textbf{Definition 6.9}}
+Let $(G, *_G)$ and $(H, *_H )$ be groups. We say that G and H are isomorphic (as groups), denoted by $G \cong H$, if there is a bijection $\phi : G \rightarrow H$ satisfying
+$\phi (g_1 *_G g_2) = \phi (g_1) *_H \phi (g_2) \hspace{0.1cm}\forall g_1, g_2 \in G.$
+\end{definition}
+\end{center}
+\begin{proof}
+Suppose G is Abelian, now we have $xy=yx \hspace{0.1cm}\forall x,y \in G$.\\
+We now consider elements $c, d \in H$, since $\phi$ is an isomorphism from definition 6.9 we see that we have $c=\theta(a)$ and $d=\theta(b)$ for $a,b \in G$. Hence, 
+\begin{center}
+$cd=\phi(a) \phi(b)= \phi(ab)= \phi(ba)=\phi(b)\phi(a)=dc$
+\end{center}
+Notice how $\phi(ab)=\phi(ba)$ since G is supposed to be Abelian.\\
+This proves that cd=dc for elements $c,d \in H$ therefore H is also Abelian 
+\end{proof}
+
+\section{Homomorphism}
+For the second question we will set out to prove against one of the properties of homomorphism which is:
+\begin{center}
+Let $\phi: G \rightarrow$ H be a group homomorphism.\\
+(iv) $o(\phi(g))$ divides $o(g) \hspace{0.1cm}\forall g \in G.$
+\end{center}
+\begin{proof}
+Consider $g \in G$ to be a non-identity element so that now $o(g)=2$\\
+Now we need to prove that $o(\theta(g)) \nmid 2$:\\
+Take $g \in G$ to be the element that maps to $\hat{2} \in \Z_4$:\\
+Hence $\theta(g)=\hat{2}$
+\begin{center}
+$\hat{2} \cdot \hat{2} = \hat{4} = \hat{1}$ \\
+$\hat{2} \cdot \hat{2} \cdot \hat{2} = \hat{1} \cdot \hat{2} = \hat{2}$
+\end{center}
+This shows that $o(\theta(g)) = o(\hat{2}) = 3$\\
+Therefore $\theta$ cannot be a group homomorphism since $3 \nmid 2$. Hence we have proved against (iv) because $o(\theta(g)) \nmid o(g) \hspace{0.1cm} \forall g \in G$
+\end{proof}
+
+
+\end{document}

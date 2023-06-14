@@ -1,0 +1,39 @@
+\documentclass[,oneside]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{setspace}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\numberwithin{equation}{section}
+\usepackage{listings}
+\newcommand{\Z}{\mathbb{Z}}
+
+\author{Lewis McConkey}
+\date{\today}
+\title{ \LARGE{Proof that $\sqrt7$ is irrational}}
+     
+          
+\begin{document}
+\maketitle
+\begin{proof}
+We will set out to prove this by contradiction, assuming that $\sqrt7$ is rational. By definition of rational numbers:
+\begin{center}
+$\sqrt7=\frac{a}{b}$ for $a,b \in \Z$ and b $\neq$ 0\\
+$7=\left( \frac{a}{b} \right)^{2}$ (squaring both sides)\\
+$7b^2=a^2$ (multiply by $b^2$ on both sides)\\
+\end{center}
+Therefore $a^2$ is a multiple of 7 and a must also be a multiple of 7\\
+Now let's write $a=7k$ for $k \in \Z$ and substituting $a=7k$ into the equation $7b^2=a^2$ we get: 
+\begin{center}
+$7b^2=7k^2$\\
+&7b^2=49k^2&\\
+&b^2=7k^2&\\
+\end{center}
+Therefore $b^2$ is also a multiple of 7 and so is b. However this contradicts the assumption that a and b have no common factors. Therefore our assumption that $\sqrt7$ is rational leads to a contradiction. Therefore we conclude that $\sqrt7$ is irrational. 
+\end{proof}
+
+
+\end{document}

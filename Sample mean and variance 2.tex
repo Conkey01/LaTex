@@ -1,0 +1,65 @@
+\documentclass[,oneside]{article}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{enumitem}
+%\usepackage[a4paper, total={6in, 9in}]{geometry}
+%\usepackage{etoolbox}
+%\makeatletter
+%\patchcmd{\@maketitle}{\null\vskip 2em}{}{}{}
+%\makeatother
+
+\numberwithin{equation}{section}
+
+\author{Lewis McConkey}
+\date{\today}
+\title{ \LARGE{Sample Mean and Sample Variance}}
+
+          
+\begin{document}
+\maketitle 
+Estimators for $\mu$ and $\sigma^2$ (The sample mean and variance):
+\begin{center}
+$\hat{\mu} = \bar{X} = \frac{1}{n}\sum\limits_{i=1}^{n} X_i$\\
+$\hat{\sigma}^2=S^2=\frac{1}{n-1}\sum\limits_{i=1}^{n} (X_i-\bar{X})^2$
+\end{center}
+First suppose that we have an IID (Independent and identically distributed) sample $X_1,....,X_n$ from a population with mean $\mu$ and variance $\sigma^2$
+\begin{enumerate}
+\item Showing that the Sample mean is an unbiased estimator of the population mean:\\
+\begin{align*}
+\mathbb{E}[\bar{X}] 
+&=
+\mathbb{E}\left[\frac{1}{n}\sum\limits_{i=1}^{n} X_i\right] \\
+&=
+\frac{1}{n}\sum\limits_{i=1}^{n}\mathbb{E}[X_i] \\
+&=
+\frac{1}{n}\sum_{i=1}^{n}\mu \\
+&= 
+\frac{n\mu}{n} \\
+&=
+\mu
+\end{align} 
+\item Showing that the Sample variance is an unbiased estimator of the population variance:
+\begin{align*}
+\mathbb{E}[S^2] 
+&=
+\mathbb{E}\left[\frac{1}{n-1}\sum\limits_{i=1}^{n} (X_i-\bar{X})^2\right] \\
+&=
+\frac{1}{n-1}\mathbb{E}\left[\sum\limits_{i=1}^{n}(X_i^2-2X_i\bar{X}+\bar{X}^2)\right] \\
+&=
+\frac{1}{n-1}\mathbb{E}\left[\sum\limits_{i=1}^{n}X_i^2-n\bar{X}^2\right] \\
+&= 
+\frac{1}{n-1}\left[\sum\limits_{i=1}^{n} \mathbb{E}[X_i^2]-n\mathbb{E}[\bar{X}^2]\right] \\
+&=
+\frac{1}{n-1}\left[\sum\limits_{i=1}^{n} (\sigma^2+\mu^2)-n(\sigma^2/n+\mu^2)\right] \\
+&=
+\frac{1}{n-1}(n\sigma^2+n\mu^2-\sigma^2-n\mu^2)\\
+&=
+\sigma^2
+\end{align} 
+
+\end{enumerate}
+
+
+\end{document}

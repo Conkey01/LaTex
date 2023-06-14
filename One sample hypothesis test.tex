@@ -1,0 +1,30 @@
+\documentclass[,oneside]{article}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{enumitem}
+
+\numberwithin{equation}{section}
+
+\author{Lewis McConkey}
+\date{\today}
+\title{ \LARGE{One sample hypothesis test}}
+
+          
+\begin{document}
+\maketitle 
+
+We want to test whether there is significant evidence to suggest that the average minimum sea ice extent in the arctic is less than 6.5 million $km^2$. Given the dataset $\{4.55, 5.05, 6.48, 5.62, 6.89, 7.52, 6.40, 6.16, 5.32, 6.61\}$ for minimum sea ice extent in millions of $km^2$ we first want to state our hypotheses and then find the sample mean ($\bar{x}$) and the sample variance $S^2$:
+\begin{align*}
+H_0: \mu &= 6.5 \hspace{0.1cm}(million\hspace{0.05cm} km^2)\\
+H_0: \mu &< 6.5 \hspace{0.1cm}(million\hspace{0.05cm} km^2)\\
+\bar{x}&=\frac{1}{n}\sum\limits_{i=1}^{n} x_i = 6.06 \\
+S^2&=\frac{1}{n-1}\sum\limits_{i=1}^{n} (x_i-\bar{x})^2 = 0.8296
+\end{align}
+Now we need to calculate the test statistic:
+\begin{align*}
+t = \frac{\bar{x}-\mu_0}{s/\sqrt{n}}=\frac{6.06-6.5}{\sqrt{0.8296/10}}=-1.53
+\end{align}
+Lastly compare against the critical value for a 95\% quantile of a t-distribution with 9 degrees of freedom (That is $qt(0.95,9) = 1.833$ in R). $t = | -1.53 | < 1.833$ and so we don't reject $H_0$ and conclude that there is no evidence that the mean sea ice extent is less than 6.5 million $km^2$.
+\end{document}

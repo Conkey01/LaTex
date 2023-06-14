@@ -1,0 +1,93 @@
+\documentclass[reqno,a4paper,12pt]{amsart}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\author{Lewis McConkey}
+\date{\today}
+\title{ \LARGE{Finding the angle} \\
+   \hspace{16cm}between two matrices}
+
+
+\begin{document}
+\maketitle
+Let:
+ \begin{align}
+    A 
+    =
+    \begin{bmatrix}
+        1  &  2 &  0  \\
+        2  &  1  &   -2  \\
+        0  &  -2  &  1
+    \end{bmatrix}\hspace{0.2cm}
+    B
+    =
+    \begin{bmatrix}
+        1 &  0 &  0  \\
+        0  &  1  &   0  \\
+        0  &  0  &  8
+    \end{bmatrix} \label{eq:1}
+  \end{align}\\
+First we need to calculate $\langle A,B \rangle$ with respect to the inner product:
+    \begin{align}
+      \langle A,B \rangle
+      := 
+      tr(AB^T) \label{eq:2}
+     \end{align}\\
+In the case where A and B are the matrices stated above:
+     \begin{align}
+      tr(
+      \begin{bmatrix}
+        1  &  2 &  0  \\
+        2  &  1  &   -2  \\
+        0  &  -2  &  1
+    \end{bmatrix} 
+    \begin{bmatrix}
+        1 &  0 &  0  \\
+        0  &  1  &   0  \\
+        0  &  0  &  8
+    \end{bmatrix} 
+      ) 
+      =
+      tr(
+      \begin{bmatrix}
+        1 & 2 & 0 \\
+        2 & 1 & -16 \\
+        0 & -2 & 8
+      \end{bmatrix}
+      )
+      =
+      10 \label{eq:3}
+    \end{align}\\
+ Next we need to calculate $\|A\|$ and $\|B\|$:
+    \begin{align}
+      \|A\|
+      =
+      \langle A,A \rangle
+      =
+      tr(AA^T)\hspace{0.5cm}
+      \|B\|
+      =
+      \langle B,B \rangle
+      =
+      tr(BB^T) \label{eq:4}
+    \end{align}\\
+Computing $tr(AA^T)$ and $tr(BB^T)$ in the same way as we did in \eqref{eq:2} and in \eqref{eq:3} by multiplying A by A transpose and B by B transpose and finding the trace of the resulting matrices we get that:
+    \begin{align}
+      \|A\|
+      =
+      \sqrt{19}\hspace{0.5cm}
+      \|B\|
+      =
+      \sqrt{66}  \label{eq:5}
+    \end{align}\\
+Therefore inputting our findings from \eqref{eq:3} and \eqref{eq:5} into the formula given in the lecture notes we get that:
+    \begin{align}
+      \cos\theta = 
+      \frac{\langle A,B \rangle}{\|A\|\|B\|}
+      =
+      \frac{10}{\sqrt{19} \cdot \sqrt{66}} \label{eq:6}
+    \end{align}
+Hence using a calculator we get that $\theta= 73.597$ (3 d.p.)
+
+     
+\end{document}

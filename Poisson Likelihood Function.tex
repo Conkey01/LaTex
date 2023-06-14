@@ -1,0 +1,73 @@
+\documentclass[,oneside]{article}
+\usepackage{amsmath}
+\usepackage{setspace
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\numberwithin{equation}{section}
+
+\author{Lewis McConkey}
+\date{\today}
+\title{ \LARGE{Likelihood Function}}
+     
+
+          
+\begin{document}
+\maketitle
+\section{Key Definitions}
+The Likelihood function of the parameter $\theta$ is the probability of the observed data for given values of $\theta$. Assuming that the data are independent and identically distributed  the likelihood function is:
+\begin{center}
+$L(\theta|x_1, x_2,..., x_n)= \prod\limits_{ i = 1}^{n} f(x_i|\theta)$
+\end{center}
+Where $f(x_i|\theta)$ is the probability density function of the data.\\ \\
+The Maximum likelihood estimate (MLE) is the value of $\theta$ that maximises $L(\theta|x_1, x_2,..., x_n)$ and is denoted $\hat{\theta}.$ The maximum likelihood estimator of $\theta$ based on random variables $X_1,X_2,...,X_n$ will be denoted $\hat{\theta}(X)$\\ \\
+
+The log-likelihood function is the natural logarithm of the likelihood function denoted:
+\begin{center}
+$l(\theta|x_1, ..., x_n)= log\left\{L(\theta|x_1,..., x_n)\right\}=log\left \{\prod\limits_{ i = 1}^{n} f(x_i|\theta)\right \}=\sum\limits_{i=1}^{n} log\{f(x_i|\theta)\}$
+\end{center}
+We often use this instead of the likelihood function as it's often easier to compute things using sum notation instead of products which will become clearer further on in this document.
+
+\section{Poisson Distribution}
+Since the probability mass function of a poisson distribution is:
+\begin{center}
+$P(X=x)=\frac{\lambda^xexp(-\lambda)}{x!}$
+\end{center}
+The Likelihood function is:
+\begin{center}
+$L(\theta|x_1, x_2,..., x_n)= \prod\limits_{ i = 1}^{n} f(x_i|\theta)=\prod\limits_{ i = 1}^{n} \frac{\lambda^xexp(-\lambda)}{x!}$
+\end{center}
+Using the definition provided in section 1 for the log-likelihood function we can compute it for the poisson distribution:
+\begin{align*}
+l(\lambda|X)
+&=
+\sum\limits_{i=1}^{n}log\left\{\frac{\lambda^{x_i}exp(-\lambda)}{x_i!}\right\} \\
+&=
+\sum\limits_{i=1}^{n} \{log(\lambda^{x_i})+log(exp(-\lambda))-log(x_i!)\} \\
+&=
+\sum\limits_{i=1}^{n} \{x_i log(\lambda)-\lambda-log(x_i!)\}\\
+&=
+log(\lambda)\sum\limits_{i=1}^{n}x_i-n\lambda-\sum\limits_{i=1}^{n}log(x_i!)
+\end{align}
+Now to find the MLE we should first differentiate either the likelihood function or the log likelihood function (these will both be the same since log is a monotone increasing function). Here we will see why the log likelihood is so important since it's much easier in general to differentiate it:
+\begin{align*}
+\frac{\partial }{\partial \lambda}l(\lambda|X)=\frac{1}{\lambda}\sum\limits_{i=1}^{n}x_i-n
+\end{align}
+Now if we set this derivative equal to 0 then we could potentially get the MLE:
+\begin{align*}
+\frac{1}{\lambda}\sum\limits_{i=1}^{n}x_i-n= 0
+\end{align}
+Hence: 
+\begin{align*}
+\hat{\lambda}=\frac{\sum_{i=1}^{n}x_i}{n}=\bar{x}
+\end{align}
+Finally to confirm this is actually the MLE we need to show that this is a maximum:
+\begin{align*}
+\frac{\partial^2 }{\partial \lambda^2}l(\lambda|X)=-\frac{1}{\lambda^2}\sum\limits_{i=1}^{n}x_i< 0
+\end{align}
+Therefore this is the MLE for a poisson distribution.
+
+
+\end{document}

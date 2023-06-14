@@ -1,0 +1,270 @@
+\documentclass[,oneside]{article}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\numberwithin{equation}{section}
+
+\author{Lewis McConkey, Euan Currie, \\ Toni Snowden-Clarke, Natty Smales, Rebekah Hopper}
+\date{\today}
+\title{ \LARGE{Capture-recapture modelling} \\
+          \hspace{16cm}Group project}
+     
+
+          
+\begin{document}
+\maketitle
+ \begin{abstract} 
+
+ \end{abstract}
+ \section{\large{Introduction}}
+ Throughout this report we will introduce the statistical technique called capture-recapture modelling and highlight when one might want to use this especially in ecology and wildlife management. We will first produce an overview of capture-recapture modelling and give some key definitions that will be important in the entirety of the report and in explaining the main ideas of the method. Further on from this we will show what typical data looks like, how it’s collected and different ways of identifying subjects. In the main section of the report we will discuss closed and open models and how these might differ by providing types, examples, uses and the statistics behind the two models. We will highlight the factor that separates open models from closed ones when providing the theory behind capture-recapture modelling and how that impacts the outcomes of the method. We will finalise the report by summarising all the information we have provided and backing up any points we have made throughout the previous sections to supplement all our findings on capture-recapture modelling. 
+ 
+ 
+\section{\large{Overview of capture-recapture modelling}} 
+Capture-recapture modelling is used mainly to estimate population size of wildlife animals in ecology by a simple statistical method. The main idea of capture-recapture modelling is to capture a sample of individuals from a population, mark them and then release them again. This process is then repeated for more samples and by comparing the number of marked individuals in the two samples it is possible to estimate the population size. As powerful a method capture-recapture modelling is, it also has its limitations due to assumptions that need to be made to carry out the method. As will be highlighted further on in the report, open and closed models differ slightly in the assumptions however a main assumption to capture-recapture modelling is that none of the population migrate or die when repeating the process of marking a sample of individuals. In reality we know this to not be the case so the probability of capturing each animal in consecutive samples will differ in reality however the model doesn’t take that into account. 
+
+\section{\large{Key definitions}} 
+Abundance, which is an important variable in ecology, is the size of the population that can be estimated by capture-recapture data. It’s very important in describing the distribution and diversity of different species in an ecosystem and can be used to assess the health and stability of a population. Capture history refers to the record of captures and the number of individuals that have been captured during each sampling event since most of the population is unlikely to be captured as can be seen by the likelihood equation later on in the report. This can then be used to estimate population size and the probability of capturing an individual in a subsequent sample. Discrete covariates are variables that take on specific values and can be used to predict probability of capture, survival etc. based on the population's age, sex etc. They can be used too to adjust for heterogeneity and to improve the accuracy of the population size estimate. Heterogeneity refers to the fact the probability of each individual capture will not be the same as the last due to various factors and failure to account for this could bias other model parameters. It can arise from characteristics such as size or behaviour however researchers usually use covariates to adjust for these differences as previously mentioned. This is the likelihood function: \\
+\begin{equation}
+L\propto\frac{N!}{N-D!}\prod_{i=1}^{D}Pr(h_i)\times Pr(h_0)^{N-D}
+\end{equation} 
+Given the set of model parameters (Observed encounter history for individual i, observed encounter history of never encountered, population size and number of observed individuals) this function is used to estimate key parameters like the population size and probability of capture in capture-recapture models. The likelihood function is widely used in many statistical models capture-recapture modelling just being one of the many examples of where likelihood could be used. \\
+Mixtures are statistical models where the population is assumed to consist of subpopulations each with its own probability of capture. It’s used when we know there is heterogeneity in the population such as differences in individual characteristics or habitat use. A model represents the mathematical process of examining a relationship between one or more independent variables and a dependent variable, in the capture-recapture model case it estimates population parameters based on capture history data and can be either open or closed as will be discussed in more detail further on in the report. 
+ 
+\section{\large{Typical data}}
+Data is collected in a capture-recapture study in two stages: 
+\begin{enumerate}
+\item Capture: In this stage, a sample of the population is captured and marked (marking can come in many different forms which will be discussed later). 
+\item Recapture: After a specified period, a second sample is taken, and the number of marked individuals in the second sample is counted along with the number of new individuals (the individuals that weren’t captured previously).
+\end{enumerate}
+Typical data used in capture-recapture modelling includes information on the individuals captured in each sample, such as their age, sex or species. This information can be used to classify individuals into different categories and to determine the proportion of the population captured in each sample. \\
+The important piece of data used in capture-recapture modelling is the number of individuals recaptured in each sample. This information is used to estimate the population size of the individuals. It is also important to have information on the characteristics of the capture and recapture events, such as the time and location of the captures, the type of equipment used, and any other factors that may affect the recapture probability. This information can be used to account for any biases or variability in the data that could affect the estimation of the population size.
+We need to have a clear definition of our population, including the spatial and temporal boundaries, as well as any restrictions on the individuals that can be included in the population. This information is used to ensure that the capture-recapture model is only applied to a well-defined population, and to prevent any error in the estimation of the population size. It is easier to create models for a closed population but can also be done with open populations too, this will be mentioned more further on. \\
+We often represent capture-recapture data as an encounter history. The encounter history is a series of zeros and ones. Where a 1 represents the capture/recapture of a subject and a 0 meaning the subject wasn’t caught within a specific sampling occasion. These encounter histories (of several subjects) can be represented in a table or matrix as seen below. \\
+\begin{table}[h]
+\centering
+\begin{tabular}{rlc}
+\hline
+ID no. && Capture history \\
+\hline
+T-002 & Adult female, radiocollared & 011110101 \\
+T-003 & Adult male, radiocollared & 000110000 \\
+T-004 & Adult male, radiocollared & 001011101
+\end{tabular}
+\caption{Encounter histories}
+\label{tab:EncounterHistories}
+\end{table}\\
+\begin{center}
+$
+A = 
+\begin{Bmatrix}
+0 & 1 & 1 & 1 & \cdots & 0 \\
+0 & 0 & 1 & 1 & \cdots & 0 \\
+0 & 1 & 0 & 0 & \cdots & 0 \\
+1 & 1 & 1 & 0 & \cdots & 0 \\
+1 & 1 & 1 & 1 & \cdots & 0 \\
+0 & 0 & 0 & 0 & \cdots & 1
+\end{Bmatrix}$
+\end{center}
+The columns in this matrix represent each successive sample.\\
+In a capture-recapture study, individuals can be marked or captured in various ways, depending on the species, the habitat and more variables. These are some of the common methods that are used to mark or capture individuals: \\
+1- Physical marking: This is where we physically mark the individuals. Birds can be marked with leg bands, fish can be marked with fin clips, and mammals can be marked with ear tags or tattoos. \\
+2- Chemical marking: This involves adding a chemical substance. For example, amphibians can be marked by injecting a harmless dye into their skin. \\
+3- Visual marking: This involves creating a unique visual characteristic like a scar, that allows individuals to be recognized. Reptiles can be marked by notching their tails, and some mammals can be marked by trimming their fur. \\
+4- Acoustic marking: This requires recording the calls or songs of the individuals. Birds can be marked by their songs, and some mammals can be marked by their vocalisations. \\
+5- Genetic marking: Where you use DNA samples to identify unique genetic markers, such as microsatellites or SNPs (single nucleotide polymorphisms). For example, fish can be marked by their DNA, and mammals can be marked by their hair samples. \\
+The method used to mark or capture individuals will depend on the research objectives, the size and the behaviour of the species. It is important to choose a marking method that does not harm the individuals or affect their survival or behaviour. There are pros and cons to all these marking methods so choosing the right one is vital when conducting a capture-recapture study. If you deter an animal when marking it, it could affect the probability of it being recaptured therefore affecting a population estimate.
+
+\section{\large{Closed Models}}
+Closed capture-recapture refers to methods that work based on the assumptions: that the population being estimated is closed, meaning no deaths, births or migrations, meaning the population stays constant over the capture time periods. It is also assumed that with methods like marking or tags, that they are not lost or overlooked or misread by researchers when conducting the recaptures.  And the final assumption that is mainly used when conducting capture-recapture experiments is that all animals are equally likely to be captured in each sample.
+\subsection{Ecological models}
+The main models of closed capture-recapture methods that will be discussed in this report are discrete-time models, as there needs to be more research and trials that have been conducted for the continuous time models. The first discrete-time models that will be covered are classified as ecological models (such as M(0), M(t), M(b), etc ) which take into account the impact that certain variations in the capture probability may have on the population calculation and the likelihood calculations.
+The likelihood for the ecological models has the form: 
+\begin{equation}
+L\propto\frac{N!}{N-D!}\prod_{i=1}^{D}Pr(h_i)\times Pr(h_0)^{N-D}
+\end{equation}
+Where N represents the population size, D represents the number of observed individuals, hi represents the observed encounter history for individual i, and h0 is the observed encounter history of individuals that were never encountered. However, for each of the models, the probabilities for hi and h0 will vary based on the sources of variation in capture probabilities which are considered for each model. \\ \\
+M(0): \\
+The model M(0) calculates the likelihood of the observed data given that parameters such as the probability capture are constant and aren't affected by any factors such as temporal variations or behavioural responses to being captured. \\
+In this model the Capture-recapture data and probabilities are as follows: 
+\begin{itemize}
+\item 1 0 0 1 0 \hspace{1cm}p(1-p)(1-p)p(1-p)
+\item 1 0 0 0 1 \hspace{1cm}p(1-p)(1-p)(1-p)p
+\item 0 1 1 1 0 \hspace{1cm}(1-p)ppp(1-p)
+\item 1 1 1 1 1 \hspace{1cm}ppppp
+\item 0 0 0 0 0 \hspace{1cm}(1-p)(1-p)(1-p)(1-p)(1-p)
+\item $\cdots$
+\end{itemize}
+
+With p being the probability an individual is captured. The last probability set represents the individuals that aren’t captured during the study, which needs to be estimated to be able to calculate the population and the likelihood calculations accurately. \\ \\
+M(t):\\
+The model M(t) is very similar to the M(0) model as it calculates the likelihood of the observed data however it takes into account the impact that temporal variation can have on the capture probability, to do so each occasion has a different capture probability (pt).\\
+The capture-recapture data probabilities for this model are as follows:
+\begin{itemize}
+\item 1 0 0 1 1 \hspace{1cm}$p_1(1-p_2)(1-p_3)p_4p_5$
+\item 0 1 1 0 0 \hspace{1cm}$(1-p_1)p_2p_3(1-p_4)(1-p_5)$
+\item 1 1 1 1 1 \hspace{1cm}$p_1p_2p_3p_4p_5$
+\item 0 0 0 0 0 \hspace{1cm}$(1-p_1)(1-p_2)(1-p_3)(1-p_4)(1-p_5)$
+\item $\cdots$
+\end{itemize}
+
+M(b): \\
+The model M(b) does the same as M(t) except instead of modelling around temporal variation, it takes into account the behavioural responses to being captured and the effect this may have on any further capture occasion probabilities, with p representing the probability of initial capture and c representing the probabilities of any subsequent captures.\\
+The data and probabilities for this model would look like the following: 
+\begin{itemize}
+\item 1 1 1 1 1 \hspace{1cm}pcccc
+\item 1 0 0 0 1 \hspace{1cm}p(1-c)(1-c)(1-c)c
+\item 0 0 1 0 1 \hspace{1cm}(1-p)(1-p)p(1-c)c
+\item 0 0 0 0 0 \hspace{1cm}(1-p)(1-p)(1-p)(1-p)(1-p)
+\item $\cdots$
+\end{itemize}
+
+M(g/h):\\
+The models M(g) and M(h) take into account the capture probability will vary due to heterogeneity, meaning that not all individuals in the study will have the same probability of capture, for example, some potential causes for a differing capture probability are gender or age.
+\subsection{Log-linear models}
+Originally proposed by Fienburg (1972), in which the data are regarded as a form of incomplete $2^t$ contingency table, in which t is the number of lists, for which the cell corresponding to individuals uncaptured throughout the captures are missing. Then various log-linear models are fitted to the observed cells and the chosen model is projected onto the unobserved cells by assuming there is no t-sample interaction. \\
+Example (using a three-sample case): \\
+The individual capture data is first aggregated as a categorical data form (for example the frequencies of the same capture history are obtained) and for a three-sample case, there are seven observed cells: 
+\begin{itemize}
+\item Z100 \hspace{1cm}individuals captured only on the first occasion
+\item Z010 \hspace{1cm}individuals captured on the second occasion only
+\item Z001 \hspace{1cm}individuals captured on the third occasion only
+\item Z110 \hspace{1cm}individuals captured on the first and second occasion
+\item Z101 \hspace{1cm}individuals captured on the first and third occasion
+\item Z011 \hspace{1cm}individuals captured on the second and third occasion
+\end{itemize}
+
+The missing cell Z000 denotes the number of animals that weren't captured on any occasion. The log-linear models the logarithm of the expected value of each observable category, with the most general log-linear model for a three-sample case as mentioned above, is:
+\begin{align}
+LogE(Z_{ijk})=u&+u_1I(i=1)+u_2I(j=1)+u_3I(k=1)\nonumber \\ & +u_{12}I(i=j=1)+u_{13}I(i=k=1)+u_{23}I(j=k=1)
+\end{align}
+However, in the formula above there are eight parameters but we only have seven observed cells so it is assumed that there is no three-sample interaction term, meaning $u_{123} = 0$.
+\subsubsection{Case study}
+Using the examples in \cite{Ap87} we can analyse how useful and accurate log-linear models are when there is a presence of referrals of individuals between sources, in this case measuring the prevalence of problem drug use in England, assuming a Poisson likelihood.\\
+To assess whether models incorporating referrals between sources can be fitted within the standard log-linear framework, they compare the form of the expected cell counts under various scenarios, however, it is shown that corresponding log-linear models require both a three-way interaction and also an $S_1\times S_3$ interaction term, which is not possible to fit the appropriate log-linear model as there are only 7 observed data points. So it is not always possible to accommodate the correct data structure using any identifiable log-linear model.
+It is demonstrated, that in the presence of referral mechanisms between sources, the standard log-linear models for capture-recapture calculations are too restrictive and can lead to errors in the calculations which result in ‘grossly misleading prevalence estimates’, and so log-linear models can be useful for modelling simpler data sets can be extremely inaccurate for slightly more complex data.
+
+\subsection{Lincoln-Petersen Method}
+The Lincoln-Petersen method is the classic and most basic method used to calculate a population estimate. It is named after two scientists, Frederick Charles Lincoln and Edward A. Petersen, who independently developed the model in the early 1900s. The Lincoln-Petersen estimator deals with the simplest form of capture-recapture data, in which we have a closed population size. We also do not account for heterogeneities when using this estimator and only have 2 capture occasions. These can be thought of as $t=1$ and $t=2$. For each individual, we look at the capture history which is denoted for each individual as ($x_1, x_2$) where $x_t= 0,1,$ taking the value 0 when an individual is not captured on a capture occasion and 1 when an individual is captured. Using these variables we have 3 observable possibilities for all individuals. These include (1,1), (1,0) and (0,1). There is of course a fourth non-observable possibility (0,0), and the number of individuals that fall under this category is the primary variable we are interested in estimating.\\
+We denote the number of individuals who fall under each of these categories with $n_{ij}$. Where i,j corresponds to the capture history of the individuals within that set. For example, the number of individuals with a capture history (1,1) would be denoted as $n_{11}$. Using these values we can construct a contingency table. 
+\begin{table}[h]
+\centering
+\begin{tabular}{rlc}
+&&Capture occasion 2 \\
+ \vline & 0 & 1 \\
+\hline
+Capture 0 \vline & $n_{00}= \hspace{0.1cm}?$ & $n_{01}$ \\
+occasion 1 0 \vline & $n_{10}$ & $n_{11}$
+
+\end{tabular}
+\caption{Capture history}
+\label{tab:CaptureHistory}
+\end{table}\\
+We can use these values to calculate the observed population size which we will call n. In other words, this is the total population size (N) minus the number of unobserved individuals in the population. \\
+In order to estimate $n_{00}$, we use the assumption that the probability of an individual being observed on the second capture occasion is independent of whether or not an individual is observed on the first capture occasion, in order to construct the following ratios:
+\begin{equation}
+\frac{n_{11}}{n_{10}}\approx\frac{n_{01}}{n_{00}}
+\end{equation}
+Using these values we can get an estimate for the total population:
+\begin{equation}
+\hat{N} = \frac{(n_{11}+n_{10})(n_{11}+n_{01})}{n_{11}}
+\end{equation}
+Lincoln-Petersen method makes several simplifying assumptions, including that the population is closed (i.e. there is no immigration or emigration), that all individuals have an equal chance of being captured and marked, and that the marking and recapture does not affect the survival, behaviour, or movement of the animals. These assumptions are rarely met in practice, particularly in studies involving human populations.
+\subsubsection{Assessing the Lincoln-Petersen Method}
+While the Lincoln-Petersen method has limitations and is not always accurate, it is a useful tool for estimating population sizes of a wide range of animals and individuals. We plan to evaluate the “usefulness” of the Lincoln-Petersen method by analysing the case study “Mark-Recapture Accurately Estimates Census for Tuatara, a Burrowing Reptile” (Moore et tal, 2010). This is an investigation conducted in New Zealand in 2003 that used capture-recapture methods over a space of 9 days and performed several Lincoln-Petersen index calculations to produce a population estimate of a closed population of Tuatara. \\
+The method for this investigation involved capturing a sample of tuatara, marking them with a white correction fluid on the snout, and then releasing them back into the area. The researchers then recaptured a second sample of tuatara and used the number of marked individuals in the second sample to estimate the total population size using the Lincoln-Petersen method as demonstrated above. This method was repeated 9 times over the space of 9 days in order to be able to capture as many of the tuatara as possible, therefore making the population estimates more precise. It is important to note that a Lincoln-Petersen index calculation was not conducted for days 4-6 and only new captures were noted, not the recaptures. After the 9 days, all 87 marked tuatara were removed from the fenced area and over a period of two weeks the area was scanned for unmarked tuatara and none were found, meaning the census population was 87 tuatara, it isn’t possible to say whether a tuatara was missed, especially as they are a burrowing animal, but it is likely that 87 is the right number for the population of tuatara in the fenced area.\\
+
+
+
+%Input image here-------------------------------------------
+
+
+
+Above we can see the results gathered from the investigation. As we can see, the first Lincoln-Petersen estimate was not precise at all, with a percentage error of -34.25\%. The remaining population estimates using the Lincoln-Petersen method were all relatively close to the census population of 87 tuataras and had a rough trend of increasing precision in population estimates the more tuatara were marked.\\
+Due to the precision in population estimates, you could most definitely argue that the Lincoln-Petersen method is a good method to calculate a population estimate. However, there are many limitations and weaknesses in this investigation. For example, due to the first Lincoln-Petersen estimate, we can conclude that when a low proportion of the population is marked, little inference can be drawn from a population estimate. Not all populations will be as small as this one. Therefore, as much as in this investigation the population estimates were accurate, we may not be able to say the same for another larger population where we won’t be able to sample a large proportion of the population. As we can see in the table, every single tuatara in the population was captured, which most definitely would not happen for a larger population.\\
+As we know, the accuracy of the Lincoln-Petersen method is based on a few assumptions, including the population being closed. This assumption may not hold true due to factors such as mortality, immigration and emigration. Therefore, the accuracy of the population estimate using the Lincoln-Petersen method can be affected by violations of the closed population assumption. In the case of this study (Moore et tal, 2010), the researchers used a fenced-off study area measuring $1290m^2$. The study area was enclosed with a fence to ensure that the population was a closed population and to minimise the potential for immigration and emigration. In terms of mortality, if a tuatara would’ve died during the investigation it would’ve most likely been found and the chance of a tuatara dying during the study is very low due to their average life span being 60 years. Tuatara also have very slow reproductive rates. Due to these reasons, mortality is unlikely to be a problem and the closed population assumption holds very well in this situation.\\
+There is also the assumption of all individuals having an equal chance of capture. Which doesn’t hold due to several reasons. Tuatara are a sexually dimorphic species, this meaning that behaviour varies between the two different sexes, therefore meaning one sex of tuatara could potentially be easier to capture than the other, violating the assumption. Another reason this assumption often doesn’t hold is due to trap-happiness or trap-shyness, which we cant be for certain if this exists in this experiment but it would be naïve to overlook it. \\
+ In conclusion, the population estimate using the Lincoln-Petersen method in this study was highly accurate, as the estimated population size was very close to the actual population size. It is clear that when a large proportion of a population is sampled through capture recapture, the Lincoln-Petersen method is a viable and relatively precise measure of population size. However we cannot draw the conclusion that it is accurate when a small proportion of individuals are marked. The method also includes large assumptions that are rarely met in practice therefore skewing population estimates. Although in this case we received some accurate population estimates, we can’t say the same for all investigations using the Lincoln-Petersen method. Therefore, I would say if you wanted a precise population estimate, using models that account for more variables would be the way to go as after all the Lincoln-Petersen is the simple classic model and newer models have built on Lincoln and Petersen’s original equation to acquire more precise population estimates.
+\section{\large{Open models}}
+In the previous section we discussed closed Capture-Recapture models, however, not all populations have perfect detection or closed populations. If closed population models are fitted to data from populations which exhibit birth/immigration and death/emigration, capture probabilities will generally be underestimated and hence population size overestimated. \cite{Ap92} Open population capture–recapture models are used for populations with imperfect detection, to estimate important parameters such as population size, recruitment, and survival. \cite{Ap93}
+\subsection{Jolly-Seber Model}
+The Jolly-Seber (JS) model, named after Jolly (1965) and Seber (1965), is a very generalised open capture-recapture model and therefore is the good starting point for scientists researching open populations. It was derived in order to deal with situations where capture-recapture data is available but the population is subject to death, birth and migration. \cite{Ap95} The JS model provides year-specific estimates of population size (N), survival ($\phi$), and capture rates (p) from capture-recapture experiments.\\
+Parameters for the JS model \cite{Ap92}:
+\begin{itemize}
+\item Populations size (N)
+\item The proportion of individuals first available for capture at occasion t+1 ($\beta_t$)
+\item The probability an indivdual is captured at occasion t ($p_t$)
+\item The probability an individual present in the study area at occasion t remains in the study area until occasion t+1 ($\phi_t$)
+\end{itemize}
+Assumptions for the JS Model \cite{Ap95}:
+\begin{itemize}
+\item Every animal in the population, marked or unmarked, has the same probability of being captured in the ith sample, given it is alive when the sample is taken.
+\item Every animal, marked or unmarked, has the same probability of surviving from the ith sample to the (i+1)th sample.
+\item Every animal caught in the ith sample has the same probability of being returned to the population.
+\item Any marked animals do not lose their mark
+\item Sampling time is negligible
+\item Every marked animal that dies in between the ith and the (i+1)th sample has the same probability of being known to have died.
+\end{itemize}
+For the probability of an observed encounter history, sum over the possible entry and departure times:\\
+\begin{equation}
+Pr(h_i)=\sum_{b=1}^{f_i}\sum_{d=l_i}^{T}\beta_{b-1}\left(\prod_{j=b}^{d-1}\phi_j\right)(1-\phi_d)\left\{\prod_{j=b}^{d}p_{j}^{x_{jj}}(1-p_j)^{1-x_{jj}}\right\}
+\end{equation}
+Suppose individual i is first captured at occasion $f_i$ and last captured at occasion $l_i$ ; $x_{ij}$ = 1 if individual i is captured at occasion j, $x_{ij}$ = 0 otherwise.\\
+The corresponding probability of an individual not captured during the study:\\
+\begin{equation}
+Pr(h_0)=\sum_{b=1}^{T}\sum_{d=1}^{T}\beta_{b-1}\left(\prod_{j=b}^{d-1}\phi_j\right)(1-\phi_d)\left\{\prod_{j=b}^{d}(1-p_j)\right\}
+\end{equation}
+Likelihood \cite{Ap93}:\\
+\begin{equation}
+L\propto\frac{N!}{N-D!}\prod_{i=1}^{D}Pr(h_i)\times Pr(h_0)^{N-D}
+\end{equation} 
+The JS model assumes homogeneity of capture and survival probabilities over the whole population. If heterogeneity is present, this model gives misleadingly precise underestimates of population size, a problem that is more marked with heterogeneity of capture than with heterogeneity of survival. However, earlier methods of adjusting JS to allow for heterogeneity of capture were not likelihood-based. \cite{Ap91} Another shortcoming of the JS model is that estimated survival probabilities can be greater than unity and that estimated numbers of new animals entering the population can be negative. \cite{Ap95} 
+\subsection{Cormack-Jolly-Seber model}
+The Cormack-Jolly-Seber (C-J-S) model, named after Cormack (1964), Jolly (1965) and Seber (1965), is a more restricted open model which only allows year-specific estimates of survival ($\phi$) and capture rates (p). \cite{Ap90}\\
+Up until recent years, the focus of research concentrated on forming specific models for each individual data set, however the C-J-S model provided a massive breakthrough in the treatment of capture-recapture data. \cite{Ap94} This is due to the fact that the survival model used to approach the C-J-S model considers the time-dependent (most commonly yearly) survival and capture/recapture rates for a single group of individuals.\\
+The C-J-S model has been the most widely used model for survival estimates from capture-recapture studies for many years. However, in many situations, this model is either too general or too restrictive. In order for the model to be used, it is assumed that all individuals in the study group, regardless of capture history or age, have the same probabilities of survival and capture. This is a very restrictive condition, as it does not fit the known facts about most research groups. On the other hand, if researchers use separate parameters for each capture rate and survival probability, then the outcome will be too general. \cite{Ap94}\\
+The solution to the second issue is fitting the C-J-S model with constant rates. Due to the parameters of the C-J-S model, three fitted models can be formed:
+\begin{itemize}
+\item Model [$\phi, p_t$] – survival constant and capture rates time-dependent
+\item Model [$\phi_t$, p] – survival time-dependent and capture rates constant
+\item Model [$\phi$, p] – Both parameters are constant.
+\end{itemize}
+Where Model Model [$\phi_t, p_t$] signifies the standard C-J-S model. Further models can be deduced from the C-J-S model by reducing time-dependence in survival and capture rates to a few levels, such as good and poor years. \cite{Ap94}
+\subsubsection{Case study}
+The following case study focuses on estimating population size of Saddle-billed Storks in southern Kruger National Park, South Africa. In this case study, the  Cormack-Jolly-Seber capture-recapture, or mark-recapture, model was used to return an estimate of the population size for each capture occasion.\\
+A  three-day vehicle census in  December  2009  covered the southern sections of KNP. The capture–mark–recapture technique was used  as  the  field  census  method.  Day  one  of  the  census  is  the  ‘mark’  operation  and  the  following  two  days  the  ‘recapture’  operation  along  the  same  routes  during  similar  conditions  as the first ‘mark’, with the same observers. Open population statistical models such as the Cormack–Jolly–Seber model conditions on the first capture of each animal  and  follows  the  subsequent  recapture/reobserva-tion  histories  throughout  the  study  (Amstrup  et  al.  2005).  It  allows  the  estimation  of  survival  and  capture  probabili-ties  from  any  type  of  sample,  not  necessarily  a  random  sample of animals and allows us to ignore covariate values for  animals  that  were  never  captured.  A  covariate  is  an  individual,  environmental,  supporting  or  related  variable  recorded  or  measured  during  the  course  of  a  capture–recapture  experiment.  Unlike  the  Jolly–Seber  model,  the  Cormack–Jolly–Seber  model  does  not  deal  with  ratios  of  marked  and  unmarked  animals  and  is  therefore  not  able  to provide the estimates of population size using maximum likelihood theory. \cite{Ap96}
+
+
+\begin{thebibliography}{1}
+\bibitem{Ap84}Wikepedia contributors, Mark and recapture\\ \url{https://en.wikipedia.org/wiki/Mark_and_recapture}, 23rd February 2023
+\bibitem{Ap85}Anne Chao, Overview of closed-recapture models \\
+\url{http://chao.stat.nthu.edu.tw/wordpress/paper/2001_JABES_6_P158.pdf}, 23rd February 2023
+\bibitem{Ap86}Montana, Estimating Abundance for Closed Populations with Mark-Recapture Methods\\
+\url{https://www.montana.edu/rotella/documents/502/Closed.pdf}, 23rd February 2023
+\bibitem{Ap87}National library of medicine, Recapture or Precapture\\
+\url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4036210/}, 23rd February 2023
+\bibitem{Ap88}British ecological society, Evaluation of trap capture\\
+url{https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/j.1365-2664.2008.01591.x}, 23rd February 2023
+\bibitem{Ap89}NexGen, Advantages and Disadvantages of The Mark and Recapture Method\\
+\url{https://nexgenvetrx.com/blog/nondomesticsexotics/immobilizationsedation/advantages-and-disadvantages-of-the-mark-and-recapture-method/}, 23rd February 2023 
+\bibitem{Ap90}Lecture 8- Open Population Capture Recapture Models\\
+\url{https://sites.warnercnr.colostate.edu/gwhite/wp-content/uploads/sites/73/2017/04/lecture8.pdf}, 23rd February 2023
+\bibitem{Ap91}Wiley online library, Open Capture–Recapture Models with Heterogeneity\\
+\url{https://onlinelibrary.wiley.com/doi/10.1111/j.1541-0420.2009.01361.x}, 23rd February 2023
+\bibitem{Ap92}Rachel McCrea, Capture-recapture methods and models: Estimating population size\\
+\url{KingMcCrea2018[3778].pdf}, 2018
+\bibitem{Ap93}Rachel McCrea, Capture-recapture\\
+\url{CRslides[3777].pdf}, 23rd February 2023
+\bibitem{Ap94}The Ecological Society of America, Modelling survival and testing biological hypotheses using marked animals\\
+\url{Lebreton1992[3779].pdf}, 1992
+\bibitem{Ap95}JSTOR, A modified analysis of the Jolly-Seber capture-recapture model\\
+\url{https://www-jstor-org.ezproxy.lancs.ac.uk/stable/2530211}, 23rd February 2023
+\bibitem{Ap96}Ostrich, Estimating population size
+\url{https://www-tandfonline-com.ezproxy.lancs.ac.uk/doi/epdf/10.2989/00306525.2012.738254?needAccess=true&role=button}, 23rd February 2023
+\end{thebibliography}
+
+\end{document}

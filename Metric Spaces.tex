@@ -1,0 +1,186 @@
+\documentclass[,oneside]{article}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{enumitem}
+
+
+\newcommand{\R}{\mathbb{R}}
+
+\numberwithin{equation}{section}
+
+\author{Lewis McConkey}
+\date{\today}
+\title{ \LARGE{Metric Spaces} \\
+          \hspace{16cm}Individual Project}
+     
+
+          
+\begin{document}
+\maketitle
+ \begin{abstract} 
+Metric spaces is a geometrical topic introduced to describe distances in Euclidean space often used in geometry and data analysis. Before being able to use metric spaces in the real world one needs to understand the conditions a space needs to satisfy in order to be classed as a metric space. In this report we begin to check, using these conditions, whether or not certain functions are metric spaces or not. This includes various basic functions, chess pieces moving across a board and whether they define a metric space and also sets of finite words. Overall the report highlights the interpretation of the definition of a metric and what it means to be a metric space.
+ \end{abstract}
+ \section{\large{Introduction}}
+ In this report we begin to check whether various functions satisfy the conditions stated in the definition of a metric to understand what makes a metric space a metric space. The conditions are stated as $d(x,y)=0 \Leftrightarrow x=y$ (M1), $d(x,y)=d(y,x)$ (M2/symmetry), $d(x,z) \leq d(x,y) + d(y,z)$ (M3/triangle inequality). In the Basic metrics section we set out to prove each condition to be true for each function given to determine whether they define a metric space. The next section is Chess metrics, where we discuss whether or not different chess pieces (king,rook,bishop,knight) are metrics using the conditions in the definition. We further compare and contrast each chess piece to each other by determining whether the properties of the minimum number of moves of each chess piece makes it a metric space in a different way then each other. The final section is on finite words and proving that a set of them is a metric and also using further operations and properties given to show a certain inequality to hold true.
+    \section{\large{Basic Metrics}}
+    \begin{enumerate}[label=(\roman*)]
+       \item $d_1(x,x) = 0$, \hspace{0.1cm}$d_1(x,y) = 1$\\
+       \begin{enumerate}[label=\alph*)]
+       \item Checking that $d_1(x,y) = 0$ if and only if $x = y$:
+        \\First check $d_1(x,y) = 0\implies x=y$
+        \\Let $d_1(x,y)=0$, 
+         \\Since letting $x=y$ gives $d_1(x,x) = 0$
+         \\and $d_1(x,y)=1$ otherwise
+         \\$d_1(x,y)$ only equals 0 when $x = y$\\
+        Hence if $d_1(x,y) = 0$ then $x=y$\\
+        
+        Now check $d_1(x,y)=0 \impliedby x=y$\\
+        Assuming that $x=y$ then $d_1(x,y)=d_1(x,x)=0$
+        Hence if $x=y$ then $d_1(x,y)=0$\\
+        So M1 is satisfied\\
+        \item Checking that $d_1(x,y)=d_1(y,x),\hspace{0.1cm} \forall x,y \in X$:
+        \\Since the distance between x and y is the same distance between y and x: $d_1(x,y)=1=d_1(y,x)$
+        \\Hence $d_1(x,y)=d_1(y,x)$\\
+        So M2 is satisfied\\
+        \item Checking that $d_1(x,z) \leq d_1(x,y) + d_1(y,z), \hspace{0.1cm} \forall x,y,z \in X$:\\
+        Using the triangle inequality:\\
+        $d_1(x,z)=|x-z|=|(x-y)+(y-z)|$\\
+        $|(x-y)+(y-z)|\leq|x-y|+|y-z|=d_1(x,y)+d_1(y,z)$\\
+        Hence M3 is satisfied\\
+        Therefore $(X, d_1)$ is a metric space\\
+        
+    \end{enumerate}
+    
+         \item $d_2(x,y)=|x-y|$ \\
+         \begin{enumerate}[label=\alph*)]
+       \item Checking that $d_2(x,y) = 0$ if and only if $x = y$:
+        \\First check $d_2(x,y) = 0\implies x=y$\\
+      If $d_2(x,y)=0$ then $|x-y|=0$\\
+      $|x-y|=0$ only happens when $x=y$ as $|x-x|=0$\\
+        Hence if $d_2(x,y) = 0$ then $x=y$\\
+        
+        Now check $d_2(x,y)=0 \impliedby x=y$\\
+        Assuming that $x=y$ then $|x-y|=|x-x|=0=d_2(x,y)$ \\
+        Hence if $x=y$ then $d_2(x,y)=0$\\
+        So M1 is satisfied\\
+        \item Checking that $d_2(x,y)=d_2(y,x),\hspace{0.1cm} \forall x,y \in X$:
+        \\$d_2(x,y)=|x-y|=|y-x|=d_2(y,x)$
+        \\Hence $d_2(x,y)=d_2(y,x)$\\
+        So M2 is satisfied\\
+        \item Checking that $d_2(x,z) \leq d_2(x,y) + d_2(y,z), \hspace{0.1cm} \forall x,y,z \in X$\\
+        Using the triangle inequality:\\
+        $d_2(x,z)=|x-z|=|(x-y)+(y-z)|$\\
+        $|(x-y)+(y-z)|\leq|x-y|+|y-z|=d_2(x,y)+d_2(y,z)$\\
+        So M3 is satisfied\\
+        Therefore $(X,d_2)$ is a metric space\\
+        
+    \end{enumerate}
+    
+    \item $d_3((x_1,y_1),(x_2,y_2))=|x_1-x_2|+|y_1-y_2|$ \\
+         \begin{enumerate}[label=\alph*)]
+       \item Checking that $d_3((x_1,y_1),(x_2,y_2)) = 0$ if and only if $x_1 = x_2, y_1 = y_2$:\\
+        Assume that $d_3((x_1,y_1),(x_2,y_2)) = 0$\\ 
+        Then $|x_1-x_2|+|y_1-y_2|=0$\\
+        Which is true only if $x_1=x_2$ and $y_1=y_2$\\
+        Hence if $d_3((x_1,y_1), (x_2,y_2))= 0$ then $x_1=x_2, y_1=y_2$\\
+        
+        Now check $d_3((x_1,y_1),(x_2,y_2)) = 0 \impliedby x_1=x_2, y_1=y_2$:\\
+        Assuming $x_1=x_2, y_1=y_2$:\\ Then $|x_1-x_2|=|x_1-x_1|=0$ and $|y_1-y_2|=|y_1-y_1|=0$
+        So $d_3((x_1,y_1),(x_2,y_2))=0$\\
+        So M1 is satisfied\\
+        
+        \item Prove $d_3((x_1,y_1),(x_2,y_2))=d_3((x_2,y_2),(x_1,y_1)),\forall x,y\hspace{0.01cm}\in X$: 
+        \\ $d_3((x_1,y_1),(x_2,y_2))=|x_1-x_2| + |y_1-y_2|$\\
+        $=|x_2-x_1| + |y_2-y_1|$ = $d_3((x_2,y_2),(x_1,y_1))$
+        \\Hence $d_3((x_1,y_1),(x_2,y_2))=d_3((x_2,y_2),(x_1,y_1))$ \\
+        So M2 is satisfied\\
+        \item Checking that $d(x,z) \leq d(x,y) + d(y,z), \hspace{0.1cm} \forall x,y,z \in X$ \\
+        $d_3((x_1,y_1),(x_2,y_2))=|x_1-x_2|+|y_1-y_2|$\\
+        $d_3((x_1,y_1),(x_3,y_3))+d_3((x_3,y_3),(x_2,y_2))=|x_1-x_3|+|y_1-y_3|+|x_3-x_2|+|y_3-y_2|$\\
+        Using the triangle inequality:\\
+        $|x_1-x_2| = |(x_1-x_3)+(x_3-x_2)| \leq |(x_1-x_3)| +|(x_3-x_2)|$\\
+        $|y_1-y_2| = |(y_1-y_3)+(y_3-y_2)| \leq |(y_1-y_3)| +|(y_3-y_2)|$\\
+        Hence adding these two equations together we get that:\\
+        $|x_1-x_2| + |y_1-y_2| \leq |(x_1-x_3)| +|(x_3-x_2)| + |(y_1-y_3)| +|(y_3-y_2)|$
+        Showing that M3 is satisfied\\
+        Therefore $(X,d_3)$ is a metric space\\
+        
+    \end{enumerate}
+    
+     \item $d_4((x_1,y_1),(x_2,y_2))=((x_1-x_2)^2+(y_1-y_2)^2)^\frac{1}{2}$\\
+       \begin{enumerate}[label=\alph*)]
+       \item Checking that $d_4(x,y)=0\Leftrightarrow x=y$\\
+       $d_4((x_1,y_1),(x_2,y_2))=0\Leftrightarrow ((x_1-x_2)^2+(y_1-y_2)^2)^\frac{1}{2}=0$\\
+       $\Leftrightarrow (x_1-x_2)^2=0, (y_1-y_2)^2=0$\\
+       $\Leftrightarrow x_1=x_2, y_1=y_2$\\
+        Hence $d_4((x_1,y_1),(x_2,y_2))=0\Leftrightarrow x_1=x_2, y_1=y_2$\\
+        So $d_4(x,y)=0\Leftrightarrow x=y$\\
+        So M1 is satisfied\\
+        \item Checking that $d_4(x,y)=d_4(y,x),\hspace{0.1cm} \forall x,y \in X$:\\
+        $d_4((x_1,y_1),(x_2,y_2))=((x_1-x_2)^2+(y_1-y_2)^2)^\frac{1}{2}$\\
+        $=((x_2-x_1)^2+(y_2-y_1)^2)^\frac{1}{2}$\\
+        $=d_4((x_2,y_2),(x_1,y_1))$
+        \\Hence $d_4(x,y)=d_4(y,x)$\\
+        So M2 is satisfied\\ 
+        \item Checking that $d_4(x,z) \leq d_4(x,y) + d_4(y,z), \hspace{0.1cm} \forall x,y,z \in X$\\
+        $d_4((x_1,y_1),(x_2,y_2))=((x_1-x_2)^2+(y_1-y_2)^2)^\frac{1}{2}$\\
+        $d_4((x_1,y_1),(x_1,y_1))=((x_1-x_1)^2+(y_1-y_1)^2)^\frac{1}{2}$\\
+        $d_4((x_2,y_2),(x_2,y_2))=((x_2-x_2)^2+(y_2-y_2)^2)^\frac{1}{2}$\\
+        Using the Cauchy-Schwarz inequality:\\
+        $((x_1-x_2)^2+(y_1-y_2)^2)^\frac{1}{2} \leq ((x_1-x_1)^2+(y_1-y_1)^2)^\frac{1}{2}((x_3-x_2)^2+(y_3-y_2)^2)^\frac{1}{2}$\\
+        $((x_1-x_2)^2+(y_1-y_2)^2)^\frac{1}{2} \leq 0$\\
+        This can't be true since the left hand side has to be positive so the Cauchy-Schwarz inequality fails in this instance.\\
+        Therefore M3 is not satisfied for all real numbers and $(X, d_4)$ isn't a metric space.
+        
+    \end{enumerate}
+   \end{enumerate}
+   
+\section{\large{Chess Metrics}}
+   \begin{enumerate}[label=(\roman*)]
+   \item King's progress, $d_K(p,q)$ minimum number of moves it takes the king to move from square p to square q  \\
+   \begin{enumerate}[label=\alph*)]
+   \item Checking that $d_K(p,q)\Leftrightarrow p=q$:\\
+   \\If $d_K(p,q)=0$, then the king is on square p and square q at the same time because the distance between p and q is equal to 0
+   \\Hence $p=q$\\
+   \\If $p=q$ then p is the same square as q hence the distance between the two is 0
+   \\Hence $d_K(p,q)=0$\\
+   So M1 is satisfied\\
+   \item Checking that $d_K(p,q)=d_K(q,p), \hspace{0.1cm}\forall p,q \in X$\\
+   Since the king only moves one square then the distance between p and q is the same as q and p which would be one square, moving q a distance of 1 square further away would just mean the distance each way increases by one as the king can only move 1 square at a time.
+   \\Hence $d_K(p,q)=d_K(q,p)$\\
+   So M2 is satsified\\
+   \item Checking that $d_K(x,z) \leq d_K(x,y) + d_K(y,z), \hspace{0.1cm} \forall x,y,z \in X$\\
+   Since the king only moves one square at a time\\
+   $d_K(x,z)=1 \leq d_K(x,y)+d_K(y,z)=1+1=2$\\
+   $1 \leq 2$ hence $d_K(x,z) \leq d_K(x,y) + d_K(y,z)$
+   \\So M3 is satisfied
+   \\Therefore $(X,d_K)$ is a metric space\\
+   \end{enumerate}
+   
+   \item Moving castle, $d_R(p,q)$ minimum number of moves it takes the rook to move from square p to square q\\
+   \\ The rook can move up the files and across the ranks. Clearly similar to $d_k$ for $d_R(p,q)=0$ then p and q have to be the same square as this is the only way the rook can have zero moves. Likewise if p = q then $d_R(p,q)=0$ since p and q are the same square so the rook hasn't moved any squares which was the same for $d_K$, therefore M1 is satisfied.\\ Assuming that the rook is currently on a square p and square q is on the same rank or the same file then the minimum number of moves is 1 clearly both ways as it can move back and forth. However if the square q isn't on the same rank or file as square p then the rook has to move across and up/down to move to that square so the number of moves in that case would be 2 but this is the same from p to q and from p to q. Therefore M2 is satisfied in a similar way to $d_K$ however unlike $d_K$, $d_R$ can only have 1 or 2 as its minimum number of moves as it can move further across the board in less moves than the king. \\Since the only minimum number of moves a rook can make is 1 or 2 unless it moves to the same square taking $d_R(x,z)=1$ then $d_K(x,y)+d_K(y,z) \geq 1$. This is because if $x = y$ then $y \neq z$ from taking $d_R(x,z)=1$ hence $d_K(y,z)$ would equal 1 or 2, the same argument holds by taking $y = z$. Taking $d_R(x,z)=2$ instead can also be used to prove M3 in a similar way as taking either $x=y$ or $y=z$ then the other must take the value of 2 to move through x, to y, to z. Hence M3 is satisfied and $(X, d_R)$ is a metric space in a similar way that $(X, d_K)$ is also a metric space.\\
+   
+  \item Black bishop's progress, $d_B(p,q)$ minimum number of moves it takes the bishop to move from square p to square q\\
+   \\ The bishop can only move across the diagonals of it's own colour. This means that the bishop can't get too half of the squares on the board. X is defined to be the whole chess board hence is all the ranks and files of squares and since no move can move the bishop from a white square p to a black square q, $d_B$ is not a metic on X\\
+   
+   \item Knight's tour, $d_N(p,q)$ the minimum number of moves it takes the knight to move from square p to square q\\
+   \\ The knight can move in an L-shape across the board. Clearly if $d_N(p,q)=0$ then p and q have to be the same square as the minimum number of moves is 0. If p and q are the same square then the knight hasn't moved hence $d_N(p,q)=0$, so M1 is satisfied. The knight moves in a L-shape across the board and so assume it travels a minimum number of moves K across from p to q then clearly the minimum number of moves from q to p is also K as it will travel backwards the same way, so M2 is satisfied. M3 is obviously satisfied from the definition of "minimum" number of moves, x to z is a minimum number of moves of 1 unless x = z and the same for x to y and y to z. Therefore $1 \leq 2, 2 \leq 4, 3 \leq 6...$, are the possible combinations that all satisfy M3. $d_N(x,z)=0 \leq d_N(x,y)=0+d_N(y,z)=0$, $0 \leq 0$ is the only other combination which is also true. Hence M3 is satisfied and $(X, d_N)$ is a metric space.
+   \end{enumerate}
+   
+\section{\large{Walking in Escherland}}
+\begin{enumerate}[label=(\roman*)]
+\item Calculating the total cost of $d_T(AABAB, AAB)$ and $d_T(AABAB, AAA)$\\
+\\First calculating $d_T(AABAB,AAB)$, to get to this we need to apply operation 2 twice to remove the last two letters of AABAB. We do this because we would be left with AAB. Doing this we get the total cost to be $(\frac{1}{2})^{L(w)} = (\frac{1}{2})^{L(AAB)} = (\frac{1}{2})^3 = \frac{1}{8}$.\\
+\\Next we calculate $d_T(AABAB, AAA)$, to get this we need to apply operation 2 three times to remove the last three letters of AABAB and then we also need to apply operation 1A to add an A to end up with AAA. Doing this we get the total cost to be $(\frac{1}{2})^{L(w)+1} = (\frac{1}{2})^{L(AAA)+1} = (\frac{1}{2})^4 = \frac{1}{16}$.\\
+
+\item Showing that $d_T$ is a metric on T\\
+\\Clearly if we have the same word then the total cost of interchanging between the two is 0 as we don't have to apply any operations. Hence if $w_1=w_2$ then we have $d_T(w_1,w_2)=0$. What's also clear is that if we have 0 as the total cost of changing between between two words then they have to be the same word. This is because adding/removing any letters to that word produces some sort of cost value no matter how minimal it may be. Hence if $d_T(w_1,w_2)=0$ then we have $w_1=w_2$ and M1 is satisfied. Changing from a word $w_1$ to a word $w_2$ is the same as changing from $w_2$ to a word $w_1$ but in reverse in terms of the operations we have to apply, hence the total cost is the same both ways. This means that M2 is satisfied as $d_T(w_1,w_2)=d_T(w_2,w_1) \hspace{0.1cm} \forall w_1,w_2 \in T$. Assume $d_T(w_1,w_2) \leq d_T(w_1, w_3) + d_T(w_3,w_2)$, then $(\frac{1}{2})^{L(w_1)+k} \leq (\frac{1}{2})^{L(w_1)+l} + (\frac{1}{2})^{L(w_3)+m}$ for integers k,l,m$\hspace{0.1cm}\geq$ 0. Since however $w_1 \wedge w_3$ contains $w_1 \wedge w_3$ or $w_2 \wedge w_3$ then the powers on the right hand side add up to less than on the left hand side since theres less operations needed to be made and hence l and m are smaller than k. which shows this inequality to be true and M3 to be satisfied. Therefore $d_T$ is a metric on T.
+
+\item Showing that $\frac{1}{2}(\frac{1}{2})^{L(w_1 \wedge w_2)} \leq d_T(w_1,w_2) \leq 2(\frac{1}{2})^{L(w_1 \wedge w_2)}$\\
+\\First showing $(\frac{1}{2})^{L(x)+1} \leq d_T(x,xy) \leq 2(\frac{1}{2})^{L(x)}$. $d_T(x,xy)=(\frac{1}{2})^{L(x)+1}$ because using step 2 we can repeatedly apply operation 1A or 1B to get from x to xy. hence the inequality is now $(\frac{1}{2})^{L(x)+1} \leq (\frac{1}{2})^{L(x)+1} \leq 2(\frac{1}{2})^{L(x)}$ which is obviously true as a fraction to a higher power is less than a fraction to a lower power. \\
+Now we set out to prove that $\frac{1}{2}(\frac{1}{2})^{L(w_1 \wedge w_2)} \leq d_T(w_1,w_2) \leq 2(\frac{1}{2})^{L(w_1 \wedge w_2)}$. $d_T(w_1,w_2)=(\frac{1}{2})^{L(w_1)+k}$ for a finite integer k $\geq$ 0. $(\frac{1}{2})^{L(w_1 \wedge w_2)} = (\frac{1}{2})^{L(w_1)+k}$ since the only operations to get to this would be from repeatedly applying operation 1A or 1B. Now the inequality becomes $\frac{1}{2}(\frac{1}{2})^{L(w_1)+k} \leq (\frac{1}{2})^{L(w_1)+k} \leq 2(\frac{1}{2})^{L(w_1)+k}$ which is clearly true because halving the same value decreases the value and doubling it increases the value.
+\end{enumerate}
+\end{document}
+
